@@ -2,6 +2,8 @@
 namespace Wx_Boilerplate\Includes;
 use Wx_Boilerplate\Includes\Class_Wx_Boilerplate_Loader as Wx_Boilerplate_Loader;
 use Wx_Boilerplate\Includes\Class_Wx_Boilerplate_i18n as Wx_Boilerplate_i18n;
+use Wx_Boilerplate\Includes\Class_Wx_Boilerplate_Cpt_Tax as Wx_Boilerplate_Cpt_Tax;
+
 use Wx_Boilerplate\Admin\Class_Wx_Boilerplate_Admin as Wx_Boilerplate_Admin;
 use Wx_Boilerplate\Site\Class_Wx_Boilerplate_Public as Wx_Boilerplate_Public;
 class Class_Wx_Boilerplate {
@@ -55,7 +57,7 @@ class Class_Wx_Boilerplate {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-
+		$this->define_shortcode_ajax_hooks();
 	}
 
 	/**
@@ -127,6 +129,24 @@ class Class_Wx_Boilerplate {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
+		//* Init Custom Post Types and Taxonomies 
+		$plugin_cpt_tax = new Wx_Boilerplate_Cpt_Tax( $this->get_plugin_name(), $this->get_version() );		
+		$this->loader->add_action( 'init', $plugin_cpt_tax, 'register_wiliex_cloud_cpts',1);
+		$this->loader->add_action( 'init', $plugin_cpt_tax, 'register_wiliex_cloud_taxs',1);
+	}
+
+	/**
+	 * Register all of the shortcode Hooks
+	 * of the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function define_shortcode_ajax_hooks() {
+		// $boilerplate_module = new Wx_Boilerplate_Module( $this->get_plugin_name(), $this->get_version() );
+
+		// $this->loader->add_shortcode('wx-boilerplate-page',$boilerplate_module, 'wx_boilerplate_page_view');
+		// $this->loader->add_action('wp_ajax_check',$boilerplate_module,'wx_check');
 	}
 
 	/**

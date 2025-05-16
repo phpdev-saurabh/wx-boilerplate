@@ -76,7 +76,7 @@ class Class_Wx_Boilerplate_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, WX_BOILERPLATE_ADMIN_ASSETS_DIR_URL . 'js/wx-boilerplate-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, WX_BOILERPLATE_ADMIN_ASSETS_DIR_URL . 'js/wx-boilerplate-admin.js', array( 'jquery' ), $this->version, true );
 
 	}
 
